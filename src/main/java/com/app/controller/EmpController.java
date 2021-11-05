@@ -9,7 +9,6 @@ public class EmpController {
 
     // get emp by id 
     @RequestMapping("/getEmpById")
-    
     public String getEmpById(int id) {
 		return null;
     }
