@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/emp")
 public class EmpController {
 
-    // get emp by id
+    // get emp by id 
     @RequestMapping("/getEmpById")
     
     public String getEmpById(int id) {
-     
+		return null;
+    }
 
 
 }
