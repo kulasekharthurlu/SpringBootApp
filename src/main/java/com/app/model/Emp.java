@@ -36,5 +36,4 @@ public class Emp {
 		return "Emp [id=" + id + ", name=" + name + ", email=" + email + "]";
 	}
 	
-
 }
