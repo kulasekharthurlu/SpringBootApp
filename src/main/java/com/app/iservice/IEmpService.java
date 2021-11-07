@@ -1,5 +1,7 @@
 package com.app.iservice;
 
+import java.util.List;
+
 import com.app.model.Emp;
 
 public interface IEmpService {
@@ -10,5 +12,7 @@ public interface IEmpService {
 	Emp getEmpById(int id);
 
 	String updateEmp(Emp emp);
+	List<Emp> getAllEmp();
+
 
 }

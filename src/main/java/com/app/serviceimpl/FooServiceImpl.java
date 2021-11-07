@@ -1,40 +1,77 @@
 package com.app.serviceimpl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.app.constants.QueryConstants;
 import com.app.iservice.IFooService;
 import com.app.model.Foo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
 public class FooServiceImpl implements IFooService {
+
+	@Autowired
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Override
 	public String saveFoo(Foo foo) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("name", foo.getName());
+		paramMap.put("email", foo.getEmail());
+		int i = namedParameterJdbcTemplate.update(QueryConstants.SAVE_FOO, paramMap);
+		return i + "row/s affected";
 	}
 
 	@Override
 	public String updateFoo(Foo foo) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("id", foo.getId());
+		paramMap.put("name", foo.getName());
+		paramMap.put("email", foo.getEmail());
+		namedParameterJdbcTemplate.update(QueryConstants.UPDATE_FOO, paramMap);
+		return "update Success";
 	}
 
 	@Override
 	public String deleteFoo(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("id", id);
+		int i = namedParameterJdbcTemplate.update(QueryConstants.DELETE_FOO, paramMap);
+		return i + "row/s affected";
 	}
 
 	@Override
 	public Foo getFoo(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("id", id);
+		return namedParameterJdbcTemplate.queryForObject(QueryConstants.GET_FOO, paramMap, (rs, rowNum) -> {
+			Foo foo = new Foo();
+			foo.setId(rs.getInt("id"));
+			foo.setName(rs.getString("name"));
+			foo.setEmail(rs.getString("email"));
+			return foo;
+		});
+
 	}
 
 	@Override
 	public List<Foo> getAllFoo() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Foo> foos = new ArrayList<>();
+		namedParameterJdbcTemplate.query(QueryConstants.GET_ALL_FOO, (rs, rowNum) -> {
+			Foo foo = new Foo();
+			foo.setId(rs.getInt("id"));
+			foo.setName(rs.getString("name"));
+			foo.setEmail(rs.getString("email"));
+			foos.add(foo);
+			return foo;
+		});
+		return foos;
 	}
-
 }
