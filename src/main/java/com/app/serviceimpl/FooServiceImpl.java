@@ -33,6 +33,7 @@ public class FooServiceImpl implements IFooService {
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("id", foo.getId());
+		paramMap.put("id", foo.getName());
 		paramMap.put("name", foo.getName());
 		paramMap.put("email", foo.getEmail());
 		namedParameterJdbcTemplate.update(QueryConstants.UPDATE_FOO, paramMap);

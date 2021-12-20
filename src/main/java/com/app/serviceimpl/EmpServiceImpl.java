@@ -19,17 +19,15 @@ public class EmpServiceImpl implements IEmpService {
 	@Override
 	public String saveEmp(Emp emp) {
 		int i = jdbcTemplate.update(QueryConstants.SAVE_EMP, emp.getName(), emp.getEmail());
-		return i + "row/s affeected";
-
+		return i + "saved emplotee";
 	}
 
 	@Override
 	public String deleteEmp(int id) {
-		int i = jdbcTemplate.update(QueryConstants.DELETE_EMP, id);
-
-		return null;
+		return jdbcTemplate.update(QueryConstants.DELETE_EMP, id) + "row/s affeected";
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Emp getEmpById(int id) {
 
